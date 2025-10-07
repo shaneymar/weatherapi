@@ -6,7 +6,7 @@ const App = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const API_KEY = "Your_API_KEY"; // Replace with your WeatherAPI key
+  const API_KEY = "cdfecc3b9e564e3b877152525250710"; 
 
   const handleSearch = async () => {
     if (!city) return;
