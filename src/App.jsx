@@ -8,25 +8,27 @@ const App = () => {
 
   const API_KEY = "cdfecc3b9e564e3b877152525250710"; 
 
-  const handleSearch = async () => {
-    if (!city) return;
-    setLoading(true);
-    setWeatherData(null);
+  const handleSearch = () => {
+  if (!city) return;
+  setLoading(true);      // <-- Set loading BEFORE starting fetch
+  setWeatherData(null);
 
-    try {
-      const response = await fetch(
-        `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
-      );
-      if (!response.ok) throw new Error("Failed to fetch weather data");
-
-      const data = await response.json();
+  fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`)
+    .then((res) => {
+      if (!res.ok) throw new Error("Failed to fetch weather data");
+      return res.json();
+    })
+    .then((data) => {
       setWeatherData(data);
-    } catch (error) {
-      alert("Failed to fetch weather data",error);
-    } finally {
+    })
+    .catch(() => {
+      alert("Failed to fetch weather data");
+    })
+    .finally(() => {
       setLoading(false);
-    }
-  };
+    });
+};
+
 
   return (
     <div className="app-container">
