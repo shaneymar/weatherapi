@@ -6,3 +6,39 @@
   font-family: 'Geist',sans-serif;
 }
 
+.app-container {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  padding: 2rem;
+}
+
+.search-bar-container {
+  margin-bottom: 1rem;
+}
+
+.search-bar input {
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.search-bar button {
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.weather-cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.weather-card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  width: 150px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}

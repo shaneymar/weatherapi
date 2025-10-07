@@ -2,25 +2,22 @@ import React, { useState } from "react";
 import "./App.css";
 
 const App = () => {
-  const [city, setCity] = useState(""); 
-  const [weatherData, setWeatherData] = useState(null); 
-  const [loading, setLoading] = useState(false); 
+  const [city, setCity] = useState("");
+  const [weatherData, setWeatherData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const API_KEY = "cdfecc3b9e564e3b877152525250710"; 
+  const API_KEY = "Your_API_KEY"; // Replace with your WeatherAPI key
 
   const handleSearch = async () => {
     if (!city) return;
     setLoading(true);
-    setWeatherData(null); // Clear previous data
+    setWeatherData(null);
 
     try {
       const response = await fetch(
         `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
       );
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch weather data");
-      }
+      if (!response.ok) throw new Error("Failed to fetch weather data");
 
       const data = await response.json();
       setWeatherData(data);
@@ -46,11 +43,9 @@ const App = () => {
           <button onClick={handleSearch}>Search</button>
         </div>
 
-        {/* Loading message immediately below search bar */}
         {loading && <p>Loading data…</p>}
       </div>
 
-      {/* Weather cards */}
       {weatherData && (
         <div className="weather-cards">
           <div className="weather-card">
