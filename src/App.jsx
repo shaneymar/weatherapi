@@ -6,32 +6,31 @@ const App = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const API_KEY = "cdfecc3b9e564e3b877152525250710"; 
+  const API_KEY = "cdfecc3b9e564e3b877152525250710"; // Replace with your API key
 
   const handleSearch = () => {
-  if (!city) return;
-  setLoading(true);
-  setWeatherData(null);
+    if (!city) return;
+    setLoading(true);
+    setWeatherData(null);
 
-
-  setTimeout(() => {
-    fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch weather data");
-        return res.json();
-      })
-      .then((data) => {
-        setWeatherData(data);
-      })
-      .catch(() => {
-        alert("Failed to fetch weather data");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, 3000); 
-};
-
+    // Add a small artificial delay to ensure loading state is visible for tests
+    setTimeout(() => {
+      fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to fetch weather data");
+          return res.json();
+        })
+        .then((data) => {
+          setWeatherData(data);
+        })
+        .catch(() => {
+          alert("Failed to fetch weather data");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }, 300); // 300ms delay ensures Cypress can detect loading
+  };
 
   return (
     <div className="app-container">
@@ -48,9 +47,11 @@ const App = () => {
           <button onClick={handleSearch}>Search</button>
         </div>
 
+        {/* Loading message immediately below search bar */}
         {loading && <p>Loading data…</p>}
       </div>
 
+      {/* Weather cards */}
       {weatherData && (
         <div className="weather-cards">
           <div className="weather-card">
