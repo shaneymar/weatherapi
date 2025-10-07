@@ -1,30 +1,31 @@
-// src/App.jsx
 import React, { useState } from "react";
-import "./App.css"; // We'll add some basic styling here
+import "./App.css";
 
 const App = () => {
-  const [city, setCity] = useState(""); // User input
-  const [weatherData, setWeatherData] = useState(null); // Weather API response
-  const [loading, setLoading] = useState(false); // Loading state
+  const [city, setCity] = useState(""); 
+  const [weatherData, setWeatherData] = useState(null); 
+  const [loading, setLoading] = useState(false); 
 
-  const API_KEY = "cdfecc3b9e564e3b877152525250710"; // Replace with your actual WeatherAPI key
+  const API_KEY = "cdfecc3b9e564e3b877152525250710"; 
 
   const handleSearch = async () => {
     if (!city) return;
     setLoading(true);
-    setWeatherData(null);
+    setWeatherData(null); // Clear previous data
 
     try {
       const response = await fetch(
         `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`
       );
+
       if (!response.ok) {
         throw new Error("Failed to fetch weather data");
       }
+
       const data = await response.json();
       setWeatherData(data);
     } catch (error) {
-      alert("Failed to fetch weather data");
+      alert("Failed to fetch weather data",error);
     } finally {
       setLoading(false);
     }
@@ -33,18 +34,23 @@ const App = () => {
   return (
     <div className="app-container">
       <h1>Weather App</h1>
-      <div className="search-bar">
-        <input
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          placeholder="Enter city name"
-        />
-        <button onClick={handleSearch}>Search</button>
+
+      <div className="search-bar-container">
+        <div className="search-bar">
+          <input
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            placeholder="Enter city name"
+          />
+          <button onClick={handleSearch}>Search</button>
+        </div>
+
+        {/* Loading message immediately below search bar */}
+        {loading && <p>Loading data…</p>}
       </div>
 
-      {loading && <p>Loading data…</p>}
-
+      {/* Weather cards */}
       {weatherData && (
         <div className="weather-cards">
           <div className="weather-card">
