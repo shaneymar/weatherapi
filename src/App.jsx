@@ -10,23 +10,26 @@ const App = () => {
 
   const handleSearch = () => {
   if (!city) return;
-  setLoading(true);      // <-- Set loading BEFORE starting fetch
+  setLoading(true);
   setWeatherData(null);
 
-  fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`)
-    .then((res) => {
-      if (!res.ok) throw new Error("Failed to fetch weather data");
-      return res.json();
-    })
-    .then((data) => {
-      setWeatherData(data);
-    })
-    .catch(() => {
-      alert("Failed to fetch weather data");
-    })
-    .finally(() => {
-      setLoading(false);
-    });
+
+  setTimeout(() => {
+    fetch(`https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`)
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch weather data");
+        return res.json();
+      })
+      .then((data) => {
+        setWeatherData(data);
+      })
+      .catch(() => {
+        alert("Failed to fetch weather data");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, 300); 
 };
 
 
