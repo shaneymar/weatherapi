@@ -29,7 +29,7 @@ const App = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, 300); 
+  }, 3000); 
 };
 
 
